@@ -101,10 +101,10 @@ vector<pair<string, double>> findMemVal(int x, FuzzyClass fuzz)
 
 }
 
-vector<pair<string, double>> inter_y_val(RuleTable rule, vector<pair<string, double>> y1temp, vector<pair<string, double>> y2temp)
+vector<pair<pair<string, string>, double>> inter_y_val(RuleTable rule, vector<pair<string, double>> y1temp, vector<pair<string, double>> y2temp)
 {
 	double val;
-	vector<pair<string, double>> out_pos;
+	vector<pair<pair<string, string>, double>> out_pos;
 	for (unsigned int i = 0; i < rule.allRules.size(); i++)
 	{
 		for (int j = 0; j < y1temp.size(); j++)
@@ -121,9 +121,11 @@ vector<pair<string, double>> inter_y_val(RuleTable rule, vector<pair<string, dou
 					{
 						val = y1temp[j].second;
 					}
-					out_pos.push_back({ rule.allRules[i][2], val });
+					//out_pos.push_back({ rule.allRules[i][2], val });
+					out_pos.push_back({ {rule.allRules[i][2], rule.allRules[i][3]}, val });
 
-
+					// USE THISSSSSS  CHANGE IT. BLAAAAAAAAAAAA TO RETURN RULES
+					//vector<pair<pair<string, string>, double>>;
 				}
 			}
 		}
@@ -131,26 +133,44 @@ vector<pair<string, double>> inter_y_val(RuleTable rule, vector<pair<string, dou
 	return out_pos;
 }
 
-double defuzz_y_val(vector<pair<string, double>> out_pos, FuzzyClass defuzz)
+pair<double, double> defuzz_y_val(vector<pair<pair<string, string>, double>> out_pos, FuzzyClass defuzz)
 {
 	double avg;
 	double intermediate_result = 0;
-	double result;
+	double res;
 	double sum_of_mf = 0;
+	pair<double, double> result;
 	for (unsigned int i = 0; i < defuzz.allSets.size(); i++)
 	{
 		for (unsigned int j = 0; j < out_pos.size(); j++)
 		{
-			if (defuzz.allSets[i].memberName == out_pos[j].first)
+			if (defuzz.allSets[i].memberName == out_pos[j].first.first)
 			{
 				int n = defuzz.allSets[i].linePoint.size();
-				avg = (defuzz.allSets[i].linePoint[0].first + defuzz.allSets[i].linePoint[n-1].first) / 2;
+				avg = (defuzz.allSets[i].linePoint[0].first + defuzz.allSets[i].linePoint[n - 1].first) / 2;
 				intermediate_result += avg * out_pos[j].second;
 				sum_of_mf += out_pos[j].second;
 			}
 		}
 	}
-	result = intermediate_result/sum_of_mf;
+	res = intermediate_result / sum_of_mf;
+	result.first = res;
+	for (unsigned int i = 0; i < defuzz.allSets.size(); i++)
+	{
+		for (unsigned int j = 0; j < out_pos.size(); j++)
+		{
+			if (defuzz.allSets[i].memberName == out_pos[j].first.second)
+			{
+				int n = defuzz.allSets[i].linePoint.size();
+				avg = (defuzz.allSets[i].linePoint[0].first + defuzz.allSets[i].linePoint[n - 1].first) / 2;
+				intermediate_result += avg * out_pos[j].second;
+				sum_of_mf += out_pos[j].second;
+			}
+		}
+	}
+	res = intermediate_result / sum_of_mf;
+	result.second = res;
+
 	return result;
 }
 
@@ -160,13 +180,13 @@ int main()
 	vector<pair<int, int>> finalLines;
 	Member m1;
 	m1.memberName = "L";
-	m1.linePoint = { { 0,1 },{ 10,1 },{ 20,0 } };
+	m1.linePoint = { { 0,1 },{ 300,1 },{ 450,0 } };
 	Member m2;
 	m2.memberName = "M";
-	m2.linePoint = { { 10,0 },{ 20,1 },{ 30,1 },{ 40,0 } };
+	m2.linePoint = { { 300,0 },{ 450,1 },{ 600,0 } };
 	Member m3;
 	m3.memberName = "H";
-	m3.linePoint = { { 30,0 },{ 45,1 },{ 60,1 } };
+	m3.linePoint = { { 450,0 },{ 600,1 },{ 1200,1 } };
 
 	FuzzyClass fuzz;
 	fuzz.allSets.push_back(m1);
@@ -175,13 +195,13 @@ int main()
 
 	Member o1;
 	o1.memberName = "L";
-	o1.linePoint = { {0,0}, {10,1}, {20, 0} };
+	o1.linePoint = { { 0,0 },{ 25,1 },{ 50, 0 } };
 	Member o2;
 	o2.memberName = "M";
-	o2.linePoint = { {20,0}, {50,1}, {80, 0} };
+	o2.linePoint = { { 50,0 },{ 75,1 },{ 100, 0 } };
 	Member o3;
 	o3.memberName = "H";
-	o3.linePoint = { {80,0}, {90,1}, {100, 0} };
+	o3.linePoint = { { 100,0 },{ 125,1 },{ 150, 0 } };
 
 	FuzzyClass defuzz;
 	defuzz.allSets.push_back(o1);
@@ -190,9 +210,11 @@ int main()
 
 
 	RuleTable rule;
-	rule = { {{"L","L","L"}, {"L","M","L"}, { "L","H","M" } ,{ "M","L","L" } ,{ "M","M","M" } ,{ "M","H","H" } ,{ "H","L","M" } ,{ "H","M","H" } ,{ "H","H","H" } } };
+	rule = { { { "L","L","L","M" },{ "L","M","L","M" },{ "L","H","L","M" } ,{ "M","L","M","L" } ,{ "M","M","M","M" } ,{ "M","H","L","H" } ,{ "H","L","M","L" } ,{ "H","M","M","L" } ,{ "H","H","H","M" } } };
 
-	vector<pair<string, double>> y1temp, y2temp, out_pos;
+	vector<pair<string, double>> y1temp, y2temp;
+
+	vector<pair<pair<string, string>, double>> out_pos;
 
 	cout << "Enter x1 value: ";
 	cin >> x1;
@@ -206,19 +228,20 @@ int main()
 
 	out_pos = inter_y_val(rule, y1temp, y2temp);
 
-	
-	cout << out_pos.size() << endl;
+
+	//cout << out_pos.size() << endl;
 	for (int i = 0; i < out_pos.size(); i++)
 	{
-		cout << out_pos[i].first << " - " << out_pos[i].second << endl;
+		//cout << out_pos[i].first << " - " << out_pos[i].second << endl;
+		cout << out_pos[i].first.first << " , " << out_pos[i].first.second << " -> " << out_pos[i].second << endl;
 	}
 
-	double res;
+	pair<double, double> res;
 
 	res = defuzz_y_val(out_pos, defuzz);
 
-	cout << "Defuzzified Result: " << res << endl;
-	
+	cout << "Defuzzified Result: " << res.first << " --- " << res.second << endl;
+
 	return 0;
 }
 
