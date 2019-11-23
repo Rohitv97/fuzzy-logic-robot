@@ -1,7 +1,7 @@
 // ariafollow.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "pch.h"
+//#include "pch.h"
 #include "aria.h"
 #include<iostream>
 #include<stdlib.h>
@@ -27,7 +27,7 @@ struct RuleTable
 };
 
 
-vector<pair<string, double>> findMemVal(int x, FuzzyClass fuzz)
+vector<pair<string, double>> findMemVal(double x, FuzzyClass fuzz)
 {
 	vector<pair<string, double>> mems;
 	for (unsigned int i = 0; i < fuzz.allSets.size(); i++)
@@ -126,7 +126,7 @@ vector<pair<pair<string, string>, double>> inter_y_val(RuleTable rule, vector<pa
 						val = y1temp[j].second;
 					}
 					//out_pos.push_back({ rule.allRules[i][2], val });
-					out_pos.push_back({ {rule.allRules[i][2], rule.allRules[i][3]}, val });
+					out_pos.push_back({ { rule.allRules[i][2], rule.allRules[i][3] }, val });
 
 					// USE THISSSSSS  CHANGE IT. BLAAAAAAAAAAAA TO RETURN RULES
 					//vector<pair<pair<string, string>, double>>;
@@ -210,10 +210,10 @@ int main(int argc, char **argv)
 	m1.linePoint = { { 0,1 },{ 300,1 },{ 400,0 } };
 	Member m2;
 	m2.memberName = "M";
-	m2.linePoint = { { 350,0 },{ 450,1 },{ 600,0 } };
+	m2.linePoint = { { 350,0 },{ 450,1 },{ 550,0 } };
 	Member m3;
 	m3.memberName = "H";
-	m3.linePoint = { { 550,0 },{ 700,1 },{ 2000,1 } };
+	m3.linePoint = { { 500,0 },{ 650,1 },{ 2000,1 } };
 
 	FuzzyClass fuzz;
 	fuzz.allSets.push_back(m1);
@@ -222,13 +222,13 @@ int main(int argc, char **argv)
 
 	Member o1;
 	o1.memberName = "L";
-	o1.linePoint = { { 0,0 },{ 25,1 },{ 50, 0 } };
+	o1.linePoint = { { 25,0 },{ 50,1 },{ 75, 0 } };
 	Member o2;
 	o2.memberName = "M";
-	o2.linePoint = { { 25,0 }, { 50,1 }, { 75,1 },{ 100, 0 } };
+	o2.linePoint = { { 75,0 },{ 125,1 },{ 175, 0 } };
 	Member o3;
 	o3.memberName = "H";
-	o3.linePoint = { { 75,0 },{ 100,1 },{ 125, 0 } };
+	o3.linePoint = { { 175,0 },{ 200,1 },{ 225, 0 } };
 
 	FuzzyClass defuzz;
 	defuzz.allSets.push_back(o1);
@@ -236,8 +236,11 @@ int main(int argc, char **argv)
 	defuzz.allSets.push_back(o3);
 
 	RuleTable rule;
-	rule = { { { "L","L","L","M" },{ "L","M","L","M" },{ "L","H","L","M" } ,{ "M","L","M","L" } ,{ "M","M","M","M" } ,{ "M","H","L","H" } ,{ "H","L","M","L" } ,{ "H","M","M","L" } ,{ "H","H","H","M" } } };
+	rule = { { { "L","L","L","H" },{ "L","M","L","H" },{ "L","H","L","H" } ,{ "M","L","H","M" } ,{ "M","M","M","M" } ,{ "M","H","L","H" } ,{ "H","L","H","M" } ,{ "H","M","H","L" } ,{ "H","H","H","L" } } };
 
+	//rule = { { { "L","L","M","H" },{ "L","M","M","H" },{ "L","H","M","H" } ,{ "M","L","H","M" } ,{ "M","M","M","M" } ,{ "M","H","M","H" } ,{ "H","L","H","M" } ,{ "H","M","H","M" } ,{ "H","H","H","M" } } };
+
+	
 	vector<pair<string, double>> y1temp, y2temp;
 
 	vector<pair<pair<string, string>, double>> out_pos;
@@ -260,33 +263,34 @@ int main(int argc, char **argv)
 			sonarRange[i] = sonarSensor[i]->getRange();
 		}
 
-		int min5 = sonarRange[5];
+		double min5 = sonarRange[5];
 
 		for (int i = 0; i < 5; i++)
 		{
-			int val5 = robot.getSonarReading(5)->getRange();
+			double val5 = robot.getSonarReading(5)->getRange();
 			if (min5 > val5)
 			{
 				min5 = val5;
 			}
 		}
+		
 
-		int min6 = sonarRange[6];
+		double min6 = sonarRange[6];
 
 		for (int i = 0; i < 5; i++)
 		{
-			int val6 = robot.getSonarReading(6)->getRange();
+			double val6 = robot.getSonarReading(6)->getRange();
 			if (min6 > val6)
 			{
 				min6 = val6;
 			}
 		}
 
-		int min7 = sonarRange[7];
+		double min7 = sonarRange[7];
 
 		for (int i = 0; i < 5; i++)
 		{
-			int val7 = robot.getSonarReading(7)->getRange();
+			double val7 = robot.getSonarReading(7)->getRange();
 			if (min7 > val7)
 			{
 				min7 = val7;
@@ -300,7 +304,10 @@ int main(int argc, char **argv)
 			rbs = 1900;
 		}
 
-		rfs = min(min5, min6);
+		min6 = min6 * cos((50 * 180) / M_PI);
+
+		rfs = min6;
+		//rfs = min(min5, min6);
 
 		if (rfs >= 2000)
 		{
@@ -319,6 +326,7 @@ int main(int argc, char **argv)
 		//---------Setting speed----------
 
 		robot.setVel2(res.first, res.second);
+		cout << "Left, Right ----->  " << res.first << "," << res.second << endl;
 		//robot.setVel2(base - output, base);
 
 		ArUtil::sleep(100);
