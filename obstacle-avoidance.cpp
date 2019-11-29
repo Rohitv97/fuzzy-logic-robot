@@ -1,7 +1,7 @@
 // ariafollow.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "pch.h"
+//#include "pch.h"
 #include "aria.h"
 #include<iostream>
 #include<stdlib.h>
@@ -260,10 +260,10 @@ int main(int argc, char **argv)
 
 	RuleTable rule;
 	rule = { { { "L","L","L","L","H" },{ "L","L","M","M","L" },{ "L","L","H","M","L" },{ "L","M","L","M","M" },{ "L","M","M","H","M" },
-		{ "L","M","H","H","L" },{ "L","H","L","L","H" }, { "L","H","M","M","M" }, { "L","H","H","H","M" },{ "M","L","L","L","H" },{ "M","L","M","L","H" },
-		{ "M","L","H","H","M" },{ "M","M","L","L","H" },{ "M","M","M","M","HB" },{ "M","M","H","H","M" },{ "M","H","L","L","M" },{ "M","H","M","M","M" },
-		{ "M","H","H","H","M" },{ "H","L","L","L","H" },{ "H","L","M","L","H" },{ "H","L","H","L","H" },{ "H","M","L","L","H" },{ "H","M","M","L","H" },
-		{ "H","M","H","L","M" },{ "H","H","L","L","H" },{ "H","H","M","M","H" },{ "H","H","H","M","M" } } };
+	{ "L","M","H","H","L" },{ "L","H","L","L","H" },{ "L","H","M","M","M" },{ "L","H","H","H","M" },{ "M","L","L","L","H" },{ "M","L","M","L","H" },
+	{ "M","L","H","H","M" },{ "M","M","L","L","H" },{ "M","M","M","M","H" },{ "M","M","H","H","M" },{ "M","H","L","L","M" },{ "M","H","M","M","M" },
+	{ "M","H","H","H","M" },{ "H","L","L","L","H" },{ "H","L","M","L","H" },{ "H","L","H","L","H" },{ "H","M","L","L","H" },{ "H","M","M","L","H" },
+	{ "H","M","H","L","M" },{ "H","H","L","L","H" },{ "H","H","M","M","H" },{ "H","H","H","M","M" } } };
 
 	//rule = { { { "L","L","M","H" },{ "L","M","M","H" },{ "L","H","M","H" } ,{ "M","L","H","M" } ,{ "M","M","M","M" } ,{ "M","H","M","H" } ,{ "H","L","H","M" } ,{ "H","M","H","M" } ,{ "H","H","H","M" } } };
 
@@ -287,7 +287,7 @@ int main(int argc, char **argv)
 			sonarRange[i] = sonarSensor[i]->getRange();
 		}
 
-		
+
 		double min2 = sonarRange[2];
 
 		for (int i = 0; i < 5; i++)
@@ -309,7 +309,7 @@ int main(int argc, char **argv)
 				min3 = val3;
 			}
 		}
-		
+
 		double min4 = sonarRange[4];
 
 		for (int i = 0; i < 5; i++)
