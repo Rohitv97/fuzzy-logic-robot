@@ -265,9 +265,6 @@ int main(int argc, char **argv)
 	{ "M","H","H","H","M" },{ "H","L","L","L","H" },{ "H","L","M","L","H" },{ "H","L","H","L","H" },{ "H","M","L","L","H" },{ "H","M","M","L","H" },
 	{ "H","M","H","L","M" },{ "H","H","L","L","H" },{ "H","H","M","M","H" },{ "H","H","H","M","M" } } };
 
-	//rule = { { { "L","L","M","H" },{ "L","M","M","H" },{ "L","H","M","H" } ,{ "M","L","H","M" } ,{ "M","M","M","M" } ,{ "M","H","M","H" } ,{ "H","L","H","M" } ,{ "H","M","H","M" } ,{ "H","H","H","M" } } };
-
-
 	vector<pair<string, double>> y1temp, y2temp, y3temp;
 
 	vector<pair<pair<string, string>, double>> out_pos;
@@ -333,8 +330,10 @@ int main(int argc, char **argv)
 		}
 
 		lfs = min2;
-		fs = (min3 + min4) / 2;
+		lfs = min(lfs, min3);
+		fs = min(min3, min4);
 		rfs = min5;
+		rfs = min(rfs, min4);
 
 		if (lfs > 2000)
 		{
@@ -349,6 +348,8 @@ int main(int argc, char **argv)
 			rfs = 1900;
 		}
 
+		cout << "Front sensor value: " << fs << endl;
+		
 		y1temp = findMemVal(lfs, fuzz);
 		y2temp = findMemVal(fs, fuzz);
 		y3temp = findMemVal(rfs, fuzz);
