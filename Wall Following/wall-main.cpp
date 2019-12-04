@@ -216,16 +216,6 @@ int main(int argc, char **argv)
 
 	vector<pair<int, int>> finalLines;
 	Member m1;
-	/*
-	m1.memberName = "L";
-	m1.linePoint = { { 0,1 },{ 300,1 },{ 430,0 } };
-	Member m2;
-	m2.memberName = "M";
-	m2.linePoint = { { 300,0 },{ 430,1 },{ 470,1 },{ 600,0 } };
-	Member m3;
-	m3.memberName = "H";
-	m3.linePoint = { { 470,0 },{ 600,1 },{ 2000,1 } };
-	*/
 	m1.memberName = "L";
 	m1.linePoint = { { 0,1 },{ 250,1 },{ 400,0 } };
 	Member m2;
@@ -245,10 +235,10 @@ int main(int argc, char **argv)
 	o1.linePoint = { { 25,0 },{ 50,1 },{ 75, 0 } };
 	Member o2;
 	o2.memberName = "M";
-	o2.linePoint = { { 75,0 },{ 125,1 },{ 150, 0 } };
+	o2.linePoint = { { 75,0 },{ 125,1 },{ 175, 0 } };
 	Member o3;
 	o3.memberName = "H";
-	o3.linePoint = { { 150,0 },{ 175,1 },{ 200, 0 } };
+	o3.linePoint = { { 175,0 },{ 200,1 },{ 225, 0 } };
 
 	FuzzyClass defuzz;
 	defuzz.allSets.push_back(o1);
