@@ -248,10 +248,10 @@ int main(int argc, char **argv)
 	o1.linePoint = { { 25,0 },{ 50,1 },{ 75, 0 } };
 	Member o2;
 	o2.memberName = "M";
-	o2.linePoint = { { 75,0 },{ 125,1 },{ 150, 0 } };
+	o2.linePoint = { { 75,0 },{ 125,1 },{ 175, 0 } };
 	Member o3;
 	o3.memberName = "H";
-	o3.linePoint = { { 150,0 },{ 175,1 },{ 200, 0 } };
+	o3.linePoint = { { 175,0 },{ 200,1 },{ 225, 0 } };
 
 	FuzzyClass defuzz;
 	defuzz.allSets.push_back(o1);
@@ -259,9 +259,9 @@ int main(int argc, char **argv)
 	defuzz.allSets.push_back(o3);
 
 	RuleTable rule;
-	rule = { { { "L","L","L","L","H" },{ "L","L","M","H","L" },{ "L","L","H","H","L" },{ "L","M","L","H","L" },{ "L","M","M","H","L" },
+	rule = { { { "L","L","L","L","H" },{ "L","L","M","H","L" },{ "L","L","H","H","L" },{ "L","M","L","L","H" },{ "L","M","M","H","L" },
 	{ "L","M","H","H","L" },{ "L","H","L","L","H" },{ "L","H","M","M","L" },{ "L","H","H","H","L" },{ "M","L","L","L","H" },{ "M","L","M","L","H" },
-	{ "M","L","H","H","L" },{ "M","M","L","L","H" },{ "M","M","M","M","H" },{ "M","M","H","H","M" },{ "M","H","L","L","H" },{ "M","H","M","M","M" },
+	{ "M","L","H","H","L" },{ "M","M","L","L","H" },{ "M","M","M","M","H" },{ "M","M","H","H","M" },{ "M","H","L","L","H" },{ "M","H","M","M","H" },
 	{ "M","H","H","H","M" },{ "H","L","L","L","H" },{ "H","L","M","L","H" },{ "H","L","H","L","H" },{ "H","M","L","L","H" },{ "H","M","M","L","H" },
 	{ "H","M","H","L","M" },{ "H","H","L","L","H" },{ "H","H","M","M","H" },{ "H","H","H","M","M" } } };
 
