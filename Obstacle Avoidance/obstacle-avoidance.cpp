@@ -330,10 +330,10 @@ int main(int argc, char **argv)
 		}
 
 		lfs = min2;
-		lfs = min(lfs, min3);
+		//lfs = min(lfs, min3);
 		fs = min(min3, min4);
 		rfs = min5;
-		rfs = min(rfs, min4);
+		//rfs = min(rfs, min4);
 
 		if (lfs > 2000)
 		{
