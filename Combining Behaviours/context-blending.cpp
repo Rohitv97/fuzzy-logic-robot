@@ -256,10 +256,10 @@ pair<double, double> wall_follow(double rfs, double rbs)
 	o1.linePoint = { { 25,0 },{ 50,1 },{ 75, 0 } };
 	Member o2;
 	o2.memberName = "M";
-	o2.linePoint = { { 75,0 },{ 125,1 },{ 150, 0 } };
+	o2.linePoint = { { 75,0 },{ 125,1 },{ 175, 0 } };
 	Member o3;
 	o3.memberName = "H";
-	o3.linePoint = { { 150,0 },{ 175,1 },{ 200, 0 } };
+	o3.linePoint = { { 175,0 },{ 200,1 },{ 225, 0 } };
 
 	FuzzyClass defuzz;
 	defuzz.allSets.push_back(o1);
@@ -308,10 +308,10 @@ pair<double, double> obstacle_avoid(double lfs, double fs, double rfs)
 	o1.linePoint = { { 25,0 },{ 50,1 },{ 75, 0 } };
 	Member o2;
 	o2.memberName = "M";
-	o2.linePoint = { { 75,0 },{ 125,1 },{ 150, 0 } };
+	o2.linePoint = { { 75,0 },{ 125,1 },{ 175, 0 } };
 	Member o3;
 	o3.memberName = "H";
-	o3.linePoint = { { 150,0 },{ 175,1 },{ 200, 0 } };
+	o3.linePoint = { { 175,0 },{ 200,1 },{ 225, 0 } };
 
 	FuzzyClass defuzz;
 	defuzz.allSets.push_back(o1);
@@ -505,10 +505,10 @@ int main(int argc, char **argv)
 		ref = wall_follow(rfs, rbs);
 
 		double lfs = min2;
-		lfs = min(lfs, min3);
+		//lfs = min(lfs, min3);
 		double fs = min(min3, min4);
 		rfs = min5;
-		rfs = min(rfs, min4);
+		//rfs = min(rfs, min4);
 
 		if (lfs > 2000)
 		{
