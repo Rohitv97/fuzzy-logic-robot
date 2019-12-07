@@ -346,10 +346,10 @@ pair<double, double> context_blending(double dist, pair<double, double> ref, pai
 {
 	Member m1;
 	m1.memberName = "OA";
-	m1.linePoint = { { 0,1 },{ 300,1 },{ 700,0 } };
+	m1.linePoint = { { 0,1 },{ 325,1 },{ 700,0 } };
 	Member m2;
 	m2.memberName = "REF";
-	m2.linePoint = { { 300,0 },{ 700,1 },{ 2000,1 } };
+	m2.linePoint = { { 325,0 },{ 700,1 },{ 2000,1 } };
 
 	FuzzyClass fuzz;
 	fuzz.allSets.push_back(m1);
@@ -357,12 +357,15 @@ pair<double, double> context_blending(double dist, pair<double, double> ref, pai
 
 	vector<pair<string, double>> f;
 
+	
 	f = findMemVal(dist, fuzz);
+
 
 	pair<double, double> res;
 
 	double f_ref = 0, f_oa = 0;
 
+	
 	cout << "-------------------------------" << f.size() << "----------" << endl;
 
 	if(f[0].first == "OA")
@@ -373,6 +376,7 @@ pair<double, double> context_blending(double dist, pair<double, double> ref, pai
 	{
 		f_ref = f[0].second;
 	}
+
 
 	double fLspeed, fRspeed;
 
@@ -499,10 +503,11 @@ int main(int argc, char **argv)
 		{
 			rfs = 1900;
 		}
-
+		//double dist_ref = min(rfs, rbs);
 		pair<double, double> ref;
 		
 		ref = wall_follow(rfs, rbs);
+		
 
 		double lfs = min2;
 		//lfs = min(lfs, min3);
@@ -527,7 +532,7 @@ int main(int argc, char **argv)
 		pair<double, double> oa;
 		oa = obstacle_avoid(lfs, fs, rfs);
 
-
+		double dist_oa;
 		double dist = min(min2, min3);
 		dist = min(dist, min4);
 		dist = min(dist, min5);
@@ -536,6 +541,7 @@ int main(int argc, char **argv)
 		{
 			dist = 1900;
 		}
+		
 
 		pair<double, double> comb_res;
 
