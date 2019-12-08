@@ -346,10 +346,10 @@ pair<double, double> context_blending(double dist, pair<double, double> ref, pai
 {
 	Member m1;
 	m1.memberName = "OA";
-	m1.linePoint = { { 0,1 },{ 325,1 },{ 700,0 } };
+	m1.linePoint = { { 0,1 },{ 300,1 },{ 650,0 } };
 	Member m2;
 	m2.memberName = "REF";
-	m2.linePoint = { { 325,0 },{ 700,1 },{ 2000,1 } };
+	m2.linePoint = { { 300,0 },{ 650,1 },{ 2000,1 } };
 
 	FuzzyClass fuzz;
 	fuzz.allSets.push_back(m1);
